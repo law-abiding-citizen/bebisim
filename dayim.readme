@@ -1,0 +1,5 @@
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/macbook_air_2025_github_personal
+  AddKeysToAgent yes
