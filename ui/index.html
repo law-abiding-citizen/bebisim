@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PocketLink - Device Monitor</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">🔗 PocketLink Simulator</div>
+        <div class="status">
+            <div>
+                <span class="status-indicator disconnected" id="statusIndicator"></span>
+                <span id="statusText">Disconnected</span>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <strong id="personCount">0</strong> persons
+                </div>
+                <div class="stat">
+                    World: <strong id="worldWidth">-</strong> × <strong id="worldHeight">-</strong>
+                </div>
+                <div class="stat">
+                    Time: <strong id="timeElapsed">00:00:00</strong>
+                </div>
+            </div>
+        </div>
+        <div class="canvas-container">
+            <canvas id="personCanvas" width="550" height="830"></canvas>
+        </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="event_handlers.js"></script>
+</body>
+
+</html>

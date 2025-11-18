@@ -1,3 +1,39 @@
 {
-    "terminal.integrated.env.windows": {}
+    "terminal.integrated.env.windows": {},
+    "codetogether.virtualCursorJoin": "sharedVirtualCursor",
+    "editor.formatOnSave": true,
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnSave": true,
+    },
+    "[toml]": {
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "javascript.format.enable": true,
+    "javascript.format.semicolons": "insert",
+    "javascript.preferences.quoteStyle": "single",
+    // ESLint Settings
+    "eslint.enable": true,
+    "eslint.codeAction.showDocumentation": {
+        "enable": true
+    },
+    "eslint.codeAction.disableRuleComment": {
+        "enable": true,
+        "location": "sameLine"
+    },
+    // npm Intellisense Settings
+    "npm-intellisense.importES6": true,
+    "npm-intellisense.importQuotes": "'",
+    "npm-intellisense.importLinebreak": ";\r\n",
+    "npm-intellisense.importDeclarationType": "const",
+    // Visual Studio IntelliCode Settings
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // Debugger for Firefox Settings
+    "firefox.keepProfileChanges": false,
+    "firefox.port": 6000,
+    "firefox.reloadOnChange": true
 }

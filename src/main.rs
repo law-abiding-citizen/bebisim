@@ -1,25 +1,40 @@
-use tiny_http::{Server, Response};
+mod action;
+mod constants;
+mod entities;
+mod server;
+
+use std::sync::Arc;
+use std::time::Duration;
+
+use crate::action::Action;
+use crate::entities::world::World;
+use crate::server::Server;
+use tokio::sync::broadcast;
+use tokio::time::sleep;
 
 #[tokio::main]
 async fn main() {
     println!("Running server on port 25555 ...");
 
-    let server = Server::http("0.0.0.0:25555").unwrap();
+    let (ws_tx, _rx) = broadcast::channel::<Action>(100);
 
-    for request in server.incoming_requests() {
-        let text = match request.url() {
-            "/hello" => "Hello, world!".to_string(),
-            "/naber" => "iyidir".to_string(),
-            _ => "404 Not Found".to_string(),
-        };
+    let world = Arc::new(World::new(ws_tx.clone()));
+    let world_for_server = Arc::clone(&world);
 
-        if request.url() != "/favicon.ico" {
-            println!("Received request: {:?}", request.url());
-        }
+    let server = Server::new(25555, ws_tx.clone(), world_for_server);
+    let server_handle = tokio::spawn(async move {
+        server.start().await;
+    });
 
-        let response = Response::from_string(text);
-        request.respond(response).unwrap();
+    sleep(Duration::from_secs(3)).await;
+
+    let world_handle = tokio::spawn(async move {
+        world.run().await;
+    });
+
+    match tokio::join!(server_handle, world_handle) {
+        (Ok(_), Ok(_)) => println!("Gracefully shutdown"),
+        (Err(e), _) => println!("Server error: {:?}", e),
+        (_, Err(e)) => println!("World error: {:?}", e),
     }
-
-    println!("Server stopped.");
 }
